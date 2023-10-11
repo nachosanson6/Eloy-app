@@ -37,7 +37,7 @@ const sculptureSchema = new Schema(
         },
 
         prize: {
-            type: Number
+            type: String
         },
 
         materials: [{

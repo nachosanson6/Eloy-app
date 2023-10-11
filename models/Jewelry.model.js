@@ -13,7 +13,7 @@ const jewelrySchema = new Schema(
         },
 
         prize: {
-            type: Number
+            type: String
         },
 
         materials: [{

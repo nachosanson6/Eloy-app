@@ -13,5 +13,8 @@ module.exports = app => {
     const jewlryRoutes = require("./jewelry.routes")
     app.use("/api/jewelry", jewlryRoutes)
 
+    const uploadRoutes = require("./upload.routes")
+    app.use("/upload", uploadRoutes)
+
 
 }

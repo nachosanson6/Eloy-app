@@ -24,7 +24,7 @@ const pictureSchema = new Schema(
         },
 
         prize: {
-            type: Number
+            type: String
         },
 
         colors: [{

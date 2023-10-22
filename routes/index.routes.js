@@ -2,7 +2,7 @@
 module.exports = app => {
 
     const authRoutes = require("./auth.routes")
-    app.use("/api/auth", authRoutes)
+    app.use("/auth", authRoutes)
 
     const picturesRoutes = require("./pictures.routes")
     app.use("/api/pictures", picturesRoutes)

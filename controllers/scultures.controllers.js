@@ -28,8 +28,36 @@ const getOneSculpture = (req, res, next) => {
         .catch(err => next(err))
 }
 
+const filteredSculptures = (req, res, next) => {
+
+    const { height, width, materials } = req.body
+    const filters = {}
+
+    if (height) {
+        filters.height = height;
+    }
+
+    if (width) {
+        filters.width = width;
+    }
+
+    if (materials) {
+        filters.materials = { $in: materials.split(',') };
+    }
+
+    Sculpture.find(filters)
+        .then((sculptures) => {
+            res.json(sculptures);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ error: 'Error en el servidor' });
+        });
+}
+
 module.exports = {
     newSculpture,
     getAllSculptures,
     getOneSculpture,
+    filteredSculptures,
 }

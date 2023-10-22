@@ -28,8 +28,36 @@ const getOnePicture = (req, res, next) => {
         .catch(err => next(err))
 }
 
+const filteredPictures = (req, res, next) => {
+
+    const { height, width, colors } = req.body
+    const filters = {}
+
+    if (height) {
+        filters.height = height;
+    }
+
+    if (width) {
+        filters.width = width;
+    }
+
+    if (colors) {
+        filters.colors = { $in: colors.split(',') };
+    }
+
+    Picture.find(filters)
+        .then((paintings) => {
+            res.json(paintings);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ error: 'Error en el servidor' });
+        });
+}
+
 module.exports = {
     newPicture,
     getAllPictures,
     getOnePicture,
+    filteredPictures
 }

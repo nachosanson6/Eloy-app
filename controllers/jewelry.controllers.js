@@ -28,8 +28,28 @@ const getOneJewelry = (req, res, next) => {
         .catch(err => next(err))
 }
 
+const filteredJewelry = (req, res, next) => {
+
+    const { materials } = req.body
+    const filters = {}
+
+    if (materials) {
+        filters.materials = { $in: materials.split(',') };
+    }
+
+    Jewelry.find(filters)
+        .then((jewelry) => {
+            res.json(jewelry);
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({ error: 'Error en el servidor' });
+        });
+}
+
 module.exports = {
     newJewelry,
     getAllJewelry,
     getOneJewelry,
+    filteredJewelry,
 }

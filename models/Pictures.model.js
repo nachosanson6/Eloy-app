@@ -13,13 +13,13 @@ const pictureSchema = new Schema(
         },
         height: {
             type: String,
-            required: [true, 'Las medidas son obligatorias.'],
+
 
         },
 
         width: {
             type: String,
-            required: [true, 'Las medidas son obligatorias.'],
+
 
         },
 

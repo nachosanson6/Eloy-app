@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
+
 const MONGO_URI =
-  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/Eloy-app";
+  process.env.MONGODB_URI || "mongodb+srv://sanson6:Sansonite6@cluster0.bj5ctu6.mongodb.net/";
 
 mongoose
   .connect(MONGO_URI)

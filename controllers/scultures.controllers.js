@@ -2,10 +2,10 @@ const router = require("express").Router()
 const Sculpture = require('./../models/Sculpures.model')
 
 const newSculpture = (req, res, next) => {
-    const { name, photo1, photo2, photo3, height, width, prize, materials } = req.body
+    const { name, photo, photo2, photo3, height, width, prize, materials } = req.body
 
     Sculpture
-        .create({ name, photo1, photo2, photo3, height, width, prize, materials })
+        .create({ name, photo, photo2, photo3, height, width, prize, materials })
         .then(() => res.sendStatus(200))
         .catch(err => next(err))
 }

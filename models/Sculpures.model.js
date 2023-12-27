@@ -7,7 +7,7 @@ const sculptureSchema = new Schema(
         },
 
 
-        photo1: {
+        photo: {
             type: String,
             required: [true, 'La foto 1 es obligatoria.'],
 

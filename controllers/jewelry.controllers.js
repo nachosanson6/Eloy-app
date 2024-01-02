@@ -20,10 +20,9 @@ const getAllJewelry = (req, res, next) => {
 
 const getOneJewelry = (req, res, next) => {
 
-    const { Jewelry_id } = req.params
-
+    const { jewelry_id } = req.params
     Jewelry
-        .findById(Jewelry_id)
+        .findById(jewelry_id)
         .then(response => res.json(response))
         .catch(err => next(err))
 }

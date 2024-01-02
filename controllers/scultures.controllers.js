@@ -54,10 +54,20 @@ const filteredSculptures = (req, res, next) => {
             res.status(500).json({ error: 'Error en el servidor' });
         });
 }
+const deleteSculpture = (req, res, next) => {
+
+    const { sculpture_id } = req.params
+
+    Picture
+        .findByIdAndDelete(sculpture_id)
+        .then(() => res.sendStatus(202))
+        .catch(err => next(err))
+}
 
 module.exports = {
     newSculpture,
     getAllSculptures,
     getOneSculpture,
     filteredSculptures,
+    deleteSculpture
 }

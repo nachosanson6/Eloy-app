@@ -55,9 +55,20 @@ const filteredPictures = (req, res, next) => {
         });
 }
 
+const deletePicture = (req, res, next) => {
+
+    const { picture_id } = req.params
+
+    Picture
+        .findByIdAndDelete(picture_id)
+        .then(() => res.sendStatus(202))
+        .catch(err => next(err))
+}
+
 module.exports = {
     newPicture,
     getAllPictures,
     getOnePicture,
-    filteredPictures
+    filteredPictures,
+    deletePicture
 }

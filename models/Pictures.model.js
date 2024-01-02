@@ -8,7 +8,7 @@ const pictureSchema = new Schema(
 
         photo: {
             type: String,
-            required: [true, 'La foto es obligatoria.'],
+            // required: [true, 'La foto es obligatoria.'],
 
         },
         height: {

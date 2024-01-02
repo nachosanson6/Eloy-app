@@ -45,10 +45,20 @@ const filteredJewelry = (req, res, next) => {
             res.status(500).json({ error: 'Error en el servidor' });
         });
 }
+const deleteJewelry = (req, res, next) => {
+
+    const { jewelry_id } = req.params
+
+    Picture
+        .findByIdAndDelete(jewelry_id)
+        .then(() => res.sendStatus(202))
+        .catch(err => next(err))
+}
 
 module.exports = {
     newJewelry,
     getAllJewelry,
     getOneJewelry,
     filteredJewelry,
+    deleteJewelry
 }

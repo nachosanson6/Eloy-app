@@ -9,30 +9,30 @@ const sculptureSchema = new Schema(
 
         photo: {
             type: String,
-            required: [true, 'La foto 1 es obligatoria.'],
+            // required: [true, 'La foto 1 es obligatoria.'],
 
         },
 
         photo2: {
             type: String,
-            required: [true, 'La foto 2 es obligatoria.'],
+            // required: [true, 'La foto 2 es obligatoria.'],
 
         },
 
         photo3: {
             type: String,
-            required: [true, 'La foto 3 es obligatoria.'],
+            // required: [true, 'La foto 3 es obligatoria.'],
 
         },
         height: {
             type: String,
-            required: [true, 'Las medidas son obligatorias.'],
+            // required: [true, 'Las medidas son obligatorias.'],
 
         },
 
         width: {
             type: String,
-            required: [true, 'Las medidas son obligatorias.'],
+            // required: [true, 'Las medidas son obligatorias.'],
 
         },
 

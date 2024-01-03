@@ -54,15 +54,17 @@ const filteredSculptures = (req, res, next) => {
             res.status(500).json({ error: 'Error en el servidor' });
         });
 }
-const deleteSculpture = (req, res, next) => {
+const deleteSculpture = async (req, res, next) => {
+    const { sculpture_id } = req.params;
 
-    const { sculpture_id } = req.params
-
-    Picture
-        .findByIdAndDelete(sculpture_id)
-        .then(() => res.sendStatus(202))
-        .catch(err => next(err))
-}
+    try {
+        await Sculpture.findByIdAndDelete(sculpture_id);
+        res.sendStatus(202);
+    } catch (error) {
+        console.error("Error deleting sculpture:", error);
+        next(error);  // Pasa el error a next para que lo maneje el middleware de errores
+    }
+};
 
 module.exports = {
     newSculpture,

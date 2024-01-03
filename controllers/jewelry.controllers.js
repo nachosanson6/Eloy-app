@@ -45,15 +45,17 @@ const filteredJewelry = (req, res, next) => {
             res.status(500).json({ error: 'Error en el servidor' });
         });
 }
-const deleteJewelry = (req, res, next) => {
+const deleteJewelry = async (req, res, next) => {
+    const { jewelry_id } = req.params;
 
-    const { jewelry_id } = req.params
-
-    Picture
-        .findByIdAndDelete(jewelry_id)
-        .then(() => res.sendStatus(202))
-        .catch(err => next(err))
-}
+    try {
+        await Jewelry.findByIdAndDelete(jewelry_id);
+        res.sendStatus(202);
+    } catch (error) {
+        console.error("Error deleting jewelry:", error);
+        next(error);  // Pasa el error a next para que lo maneje el middleware de errores
+    }
+};
 
 module.exports = {
     newJewelry,

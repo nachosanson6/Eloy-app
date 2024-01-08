@@ -58,13 +58,10 @@ const filteredPictures = (req, res, next) => {
 const deletePicture = async (req, res, next) => {
     const { picture_id } = req.params;
 
-    try {
-        await Picture.findByIdAndDelete(picture_id);
-        res.sendStatus(202);
-    } catch (error) {
-        console.error("Error deleting picture:", error);
-        next(error);  // Pasa el error a next para que lo maneje el middleware de errores
-    }
+    Picture
+        .findByIdAndDelete(picture_id)
+        .then(() => res.sendStatus(202))
+        .catch(err => next(err))
 };
 
 module.exports = {

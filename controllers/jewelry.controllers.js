@@ -48,13 +48,10 @@ const filteredJewelry = (req, res, next) => {
 const deleteJewelry = async (req, res, next) => {
     const { jewelry_id } = req.params;
 
-    try {
-        await Jewelry.findByIdAndDelete(jewelry_id);
-        res.sendStatus(202);
-    } catch (error) {
-        console.error("Error deleting jewelry:", error);
-        next(error);  // Pasa el error a next para que lo maneje el middleware de errores
-    }
+    Jewelry
+        .findByIdAndDelete(jewelry_id)
+        .then(() => res.sendStatus(202))
+        .catch(err => next(err))
 };
 
 module.exports = {

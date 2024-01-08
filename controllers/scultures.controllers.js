@@ -57,13 +57,10 @@ const filteredSculptures = (req, res, next) => {
 const deleteSculpture = async (req, res, next) => {
     const { sculpture_id } = req.params;
 
-    try {
-        await Sculpture.findByIdAndDelete(sculpture_id);
-        res.sendStatus(202);
-    } catch (error) {
-        console.error("Error deleting sculpture:", error);
-        next(error);  // Pasa el error a next para que lo maneje el middleware de errores
-    }
+    Sculpture
+        .findByIdAndDelete(sculpture_id)
+        .then(() => res.sendStatus(202))
+        .catch(err => next(err))
 };
 
 module.exports = {

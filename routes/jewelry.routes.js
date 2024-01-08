@@ -16,7 +16,7 @@ router.get("/getOneJewelry/:jewelry_id", getOneJewelry)
 
 router.get("/filteredJewelry", filteredJewelry)
 
-router.get("/deleteJewelry/:jewelry_id", deleteJewelry)
+router.post("/deleteJewelry/:jewelry_id", deleteJewelry)
 
 
 module.exports = router;

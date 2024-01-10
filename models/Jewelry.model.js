@@ -2,6 +2,12 @@ const { Schema, model } = require("mongoose");
 
 const jewelrySchema = new Schema(
     {
+
+        product:{
+            type: String,
+            default:"Jewelry"
+        },
+
         name: {
             type: String
         },

@@ -22,6 +22,26 @@ const getAllPhotos = (req, res, next) => {
         });
 };
 
+const getAllProducts = (req, res, next) => {
+    const picturesPromise = Picture.find();
+    const sculpturesPromise = Sculpture.find();
+    const jewelryPromise = Jewelry.find();
+
+    Promise.all([picturesPromise, sculpturesPromise, jewelryPromise])
+        .then(([pictures, sculptures, jewelry]) => {
+            const allItems = [
+                ...pictures.map(item => ({ type: 'picture', ...item.toObject() })),
+                ...sculptures.map(item => ({ type: 'sculpture', ...item.toObject() })),
+                ...jewelry.map(item => ({ type: 'jewelry', ...item.toObject() }))
+            ];
+            res.json(allItems);
+        })
+        .catch(err => {
+            next(err);
+        });
+};
+
 module.exports = {
-    getAllPhotos
+    getAllPhotos,
+    getAllProducts
 }

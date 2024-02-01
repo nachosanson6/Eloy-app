@@ -1,14 +1,25 @@
 const router = require("express").Router()
 const Sculpture = require('./../models/Sculpures.model')
+const generateName = require('./../modules/nameGenerator'); // Ajusta la ruta según tu estructura de carpetas
 
-const newSculpture = (req, res, next) => {
-    const { name, photo, photo2, photo3, height, width, prize, materials } = req.body
+const newSculpture = async (req, res, next) => {
+    try {
+        const { photo, photo2, photo3, height, width, prize, materials } = req.body;
 
-    Sculpture
-        .create({ name, photo, photo2, photo3, height, width, prize, materials })
-        .then(() => res.sendStatus(200))
-        .catch(err => next(err))
-}
+        // Obtén la lista de nombres existentes en la base de datos
+        const existingNames = await Sculpture.distinct('name');
+
+        // Genera un nuevo nombre basado en los materiales y nombres existentes
+        const generatedName = generateName(materials, existingNames);
+
+        // Crea la nueva escultura utilizando el nombre generado
+        await Sculpture.create({ name: generatedName, photo, photo2, photo3, height, width, prize, materials });
+
+        res.sendStatus(200);
+    } catch (error) {
+        next(error);
+    }
+};
 
 const getAllSculptures = (req, res, next) => {
 

@@ -1,14 +1,25 @@
 const router = require("express").Router()
 const Jewelry = require('./../models/Jewelry.model')
+const generateName = require('./../modules/nameGenerator'); // Ajusta la ruta según tu estructura de carpetas
 
-const newJewelry = (req, res, next) => {
-    const { name, photo, prize, materials } = req.body
+const newJewelry = async (req, res, next) => {
+    try {
+        const { photo, prize, materials } = req.body;
 
-    Jewelry
-        .create({ name, photo, prize, materials })
-        .then(() => res.sendStatus(200))
-        .catch(err => next(err))
-}
+        // Obtén la lista de nombres existentes en la base de datos
+        const existingNames = await Jewelry.distinct('name');
+
+        // Genera un nuevo nombre basado en los materiales y nombres existentes
+        const generatedName = generateName(materials, existingNames);
+
+        // Crea la nueva joyería utilizando el nombre generado
+        await Jewelry.create({ name: generatedName, photo, prize, materials });
+
+        res.sendStatus(200);
+    } catch (error) {
+        next(error);
+    }
+};
 
 const getAllJewelry = (req, res, next) => {
 

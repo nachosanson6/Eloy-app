@@ -1,14 +1,27 @@
 const router = require("express").Router()
 const Picture = require('./../models/Pictures.model')
+const generateName = require('./../modules/nameGenerator'); // Ajusta la ruta según tu estructura de carpetas
 
-const newPicture = (req, res, next) => {
-    const { name, photo, height, width, prize, colors } = req.body
+const newPicture = async (req, res, next) => {
+    try {
+        const { photo, height, width, prize, colors, materials } = req.body;
+        console.log(req.body)
 
-    Picture
-        .create({ name, photo, height, width, prize, colors })
-        .then(() => res.sendStatus(200))
-        .catch(err => next(err))
-}
+        // Obtén la lista de nombres existentes en la base de datos
+        const existingNames = await Picture.distinct('name');
+
+        // Genera un nuevo nombre basado en los materiales y nombres existentes
+        const generatedName = generateName(materials, existingNames);
+
+        // Crea la nueva imagen utilizando el nombre generado
+        await Picture.create({ name: generatedName, photo, height, width, prize, colors, materials });
+
+        res.sendStatus(200);
+    } catch (error) {
+        next(error);
+    }
+};
+
 
 const getAllPictures = (req, res, next) => {
 

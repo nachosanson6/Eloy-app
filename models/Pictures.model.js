@@ -2,9 +2,9 @@ const { Schema, model } = require("mongoose");
 
 const pictureSchema = new Schema(
     {
-        product:{
+        product: {
             type: String,
-            default:"Pictures"
+            default: "Pictures"
         },
 
         name: {
@@ -33,6 +33,10 @@ const pictureSchema = new Schema(
         },
 
         colors: [{
+            type: String
+        }],
+
+        materials: [{
             type: String
         }]
 

@@ -10,7 +10,7 @@ const newJewelry = async (req, res, next) => {
         const existingNames = await Jewelry.distinct('name');
 
         // Genera un nuevo nombre basado en los materiales y nombres existentes
-        const generatedName = generateName(materials, existingNames);
+        const generatedName = generateName("Bisutería", materials, existingNames);
 
         // Crea la nueva joyería utilizando el nombre generado
         await Jewelry.create({ name: generatedName, photo, prize, materials });

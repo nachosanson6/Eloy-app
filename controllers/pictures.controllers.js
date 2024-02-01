@@ -11,7 +11,7 @@ const newPicture = async (req, res, next) => {
         const existingNames = await Picture.distinct('name');
 
         // Genera un nuevo nombre basado en los materiales y nombres existentes
-        const generatedName = generateName(materials, existingNames);
+        const generatedName = generateName("Pintura", materials, existingNames);
 
         // Crea la nueva imagen utilizando el nombre generado
         await Picture.create({ name: generatedName, photo, height, width, prize, colors, materials });

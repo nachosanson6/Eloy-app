@@ -22,23 +22,22 @@ const getAllPhotos = (req, res, next) => {
         });
 };
 
-const getAllProducts = (req, res, next) => {
-    const picturesPromise = Picture.find();
-    const sculpturesPromise = Sculpture.find();
-    const jewelryPromise = Jewelry.find();
+const getAllProducts = async (req, res, next) => {
+    try {
+        const pictures = await Picture.find();
+        const sculptures = await Sculpture.find();
+        const jewelry = await Jewelry.find();
 
-    Promise.all([picturesPromise, sculpturesPromise, jewelryPromise])
-        .then(([pictures, sculptures, jewelry]) => {
-            const allItems = [
-                ...pictures.map(item => ({ type: 'picture', ...item.toObject() })),
-                ...sculptures.map(item => ({ type: 'sculpture', ...item.toObject() })),
-                ...jewelry.map(item => ({ type: 'jewelry', ...item.toObject() }))
-            ];
-            res.json(allItems);
-        })
-        .catch(err => {
-            next(err);
-        });
+        const allItems = [
+            ...pictures.map(item => ({ type: 'picture', ...item.toObject() })),
+            ...sculptures.map(item => ({ type: 'sculpture', ...item.toObject() })),
+            ...jewelry.map(item => ({ type: 'jewelry', ...item.toObject() }))
+        ];
+
+        res.json(allItems);
+    } catch (err) {
+        next(err);
+    }
 };
 
 module.exports = {

@@ -10,7 +10,7 @@ const newSculpture = async (req, res, next) => {
         const existingNames = await Sculpture.distinct('name');
 
         // Genera un nuevo nombre basado en los materiales y nombres existentes
-        const generatedName = generateName(materials, existingNames);
+        const generatedName = generateName("Escultura", materials, existingNames);
 
         // Crea la nueva escultura utilizando el nombre generado
         await Sculpture.create({ name: generatedName, photo, photo2, photo3, height, width, prize, materials });

@@ -38,7 +38,11 @@ const pictureSchema = new Schema(
 
         materials: [{
             type: String
-        }]
+        }],
+
+        sold: {
+            type: Boolean
+        }
 
     },
     {

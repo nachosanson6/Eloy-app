@@ -4,7 +4,7 @@ const generateName = require('./../modules/nameGenerator'); // Ajusta la ruta se
 
 const newJewelry = async (req, res, next) => {
     try {
-        const { photo, prize, materials } = req.body;
+        const { photo, prize, materials, sold } = req.body;
 
         // Obtén la lista de nombres existentes en la base de datos
         const existingNames = await Jewelry.distinct('name');
@@ -13,7 +13,7 @@ const newJewelry = async (req, res, next) => {
         const generatedName = generateName("Bisutería", materials, existingNames);
 
         // Crea la nueva joyería utilizando el nombre generado
-        await Jewelry.create({ name: generatedName, photo, prize, materials });
+        await Jewelry.create({ name: generatedName, photo, prize, materials, sold });
 
         res.sendStatus(200);
     } catch (error) {

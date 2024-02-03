@@ -4,7 +4,7 @@ const generateName = require('./../modules/nameGenerator'); // Ajusta la ruta se
 
 const newSculpture = async (req, res, next) => {
     try {
-        const { photo, photo2, photo3, height, width, prize, materials } = req.body;
+        const { photo, photo2, photo3, height, width, prize, materials, sold } = req.body;
 
         // Obtén la lista de nombres existentes en la base de datos
         const existingNames = await Sculpture.distinct('name');
@@ -13,7 +13,7 @@ const newSculpture = async (req, res, next) => {
         const generatedName = generateName("Escultura", materials, existingNames);
 
         // Crea la nueva escultura utilizando el nombre generado
-        await Sculpture.create({ name: generatedName, photo, photo2, photo3, height, width, prize, materials });
+        await Sculpture.create({ name: generatedName, photo, photo2, photo3, height, width, prize, materials, sold });
 
         res.sendStatus(200);
     } catch (error) {

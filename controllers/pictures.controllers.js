@@ -4,7 +4,7 @@ const generateName = require('./../modules/nameGenerator'); // Ajusta la ruta se
 
 const newPicture = async (req, res, next) => {
     try {
-        const { photo, height, width, prize, colors, materials } = req.body;
+        const { photo, height, width, prize, colors, materials, sold } = req.body;
         console.log(req.body)
 
         // Obtén la lista de nombres existentes en la base de datos
@@ -14,7 +14,7 @@ const newPicture = async (req, res, next) => {
         const generatedName = generateName("Pintura", materials, existingNames);
 
         // Crea la nueva imagen utilizando el nombre generado
-        await Picture.create({ name: generatedName, photo, height, width, prize, colors, materials });
+        await Picture.create({ name: generatedName, photo, height, width, prize, colors, materials, sold });
 
         res.sendStatus(200);
     } catch (error) {

@@ -3,9 +3,9 @@ const { Schema, model } = require("mongoose");
 const jewelrySchema = new Schema(
     {
 
-        product:{
+        product: {
             type: String,
-            default:"Jewelry"
+            default: "Jewelry"
         },
 
         name: {
@@ -24,7 +24,11 @@ const jewelrySchema = new Schema(
 
         materials: [{
             type: String
-        }]
+        }],
+
+        sold: {
+            type: Boolean
+        }
 
     },
     {

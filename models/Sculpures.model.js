@@ -16,7 +16,11 @@ const sculptureSchema = new Schema(
         // ... otros campos
         materials: [{
             type: String
-        }]
+        }],
+
+        sold: {
+            type: Boolean
+        }
     },
     {
         timestamps: true

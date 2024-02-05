@@ -36,7 +36,7 @@ function generateName(type, materials, existingNames) {
 
     // Verificar si el nombre ya existe en la base de datos
     let index = 1;
-    let uniqueName = `${prefixedName}-${index}`;
+    let uniqueName = `${prefixedName} ${index}`;
     while (existingNames.includes(uniqueName)) {
         index++;
         uniqueName = `${prefixedName} ${index}`;

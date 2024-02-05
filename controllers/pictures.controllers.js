@@ -68,6 +68,15 @@ const filteredPictures = (req, res, next) => {
         });
 }
 
+const editPicture = (req, res, next) => {
+    const { _id, photo, height, width, prize, colors, materials, sold } = req.body;
+    Picture
+        .findByIdAndUpdate(_id, { photo, height, width, prize, colors, materials, sold })
+        .then(() => res.status(201).send("Picture edited successfully"))  // Agregamos el envío de la respuesta
+        .catch(err => next(err));
+};
+
+
 const deletePicture = async (req, res, next) => {
     const { picture_id } = req.params;
 
@@ -82,5 +91,6 @@ module.exports = {
     getAllPictures,
     getOnePicture,
     filteredPictures,
+    editPicture,
     deletePicture
 }

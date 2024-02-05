@@ -56,6 +56,15 @@ const filteredJewelry = (req, res, next) => {
             res.status(500).json({ error: 'Error en el servidor' });
         });
 }
+
+const editJewelry = (req, res, next) => {
+    const { _id, photo, prize, materials, sold } = req.body;
+    Jewelry
+        .findByIdAndUpdate(_id, { photo, prize, materials, sold })
+        .then(() => res.status(201).send("Jewelry edited successfully"))  // Agregamos el envío de la respuesta
+        .catch(err => next(err));
+};
+
 const deleteJewelry = async (req, res, next) => {
     const { jewelry_id } = req.params;
 
@@ -70,5 +79,6 @@ module.exports = {
     getAllJewelry,
     getOneJewelry,
     filteredJewelry,
+    editJewelry,
     deleteJewelry
 }

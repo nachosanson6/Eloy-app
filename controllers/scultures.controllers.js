@@ -65,6 +65,14 @@ const filteredSculptures = (req, res, next) => {
             res.status(500).json({ error: 'Error en el servidor' });
         });
 }
+
+const editSculpture = (req, res, next) => {
+    const { _id, photo, photo2, photo3, height, width, prize, materials, sold } = req.body;
+    Sculpture
+        .findByIdAndUpdate(_id, { photo, photo2, photo3, height, width, prize, materials, sold })
+        .then(() => res.status(201).send("Sculpture edited successfully"))  // Agregamos el envío de la respuesta
+        .catch(err => next(err));
+};
 const deleteSculpture = async (req, res, next) => {
     const { sculpture_id } = req.params;
 
@@ -79,5 +87,6 @@ module.exports = {
     getAllSculptures,
     getOneSculpture,
     filteredSculptures,
+    editSculpture,
     deleteSculpture
 }

@@ -13,10 +13,30 @@ const sculptureSchema = new Schema(
         photo: {
             type: String,
         },
-        // ... otros campos
+        photo2: {
+            type: String,
+        },
+        photo3: {
+            type: String,
+        },
+
         materials: [{
             type: String
         }],
+        height: {
+            type: String,
+
+
+        },
+
+        width: {
+            type: String,
+
+
+        },
+        prize: {
+            type: String
+        },
 
         sold: {
             type: Boolean

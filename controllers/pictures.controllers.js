@@ -68,12 +68,30 @@ const filteredPictures = (req, res, next) => {
         });
 }
 
-const editPicture = (req, res, next) => {
-    const { _id, photo, height, width, prize, colors, materials, sold } = req.body;
-    Picture
-        .findByIdAndUpdate(_id, { photo, height, width, prize, colors, materials, sold })
-        .then(() => res.status(201).send("Picture edited successfully"))  // Agregamos el envío de la respuesta
-        .catch(err => next(err));
+const editPicture = async (req, res, next) => {
+    try {
+        const { _id, photo, height, width, prize, colors, materials, sold } = req.body;
+
+        // Encuentra la imagen por su ID
+        const picture = await Picture.findById(_id);
+
+        // Verifica si los materiales se han cambiado
+        if (JSON.stringify(picture.materials) !== JSON.stringify(materials)) {
+            // Los materiales han sido modificados, genera un nuevo nombre basado en los nuevos materiales
+            const existingNames = await Picture.distinct('name');
+            const generatedName = generateName("Pintura", materials, existingNames);
+
+            // Actualiza el nombre de la imagen
+            await Picture.findByIdAndUpdate(_id, { name: generatedName });
+        }
+
+        // Actualiza los otros campos de la imagen
+        await Picture.findByIdAndUpdate(_id, { photo, height, width, prize, colors, materials, sold });
+
+        res.status(201).send("Picture edited successfully");
+    } catch (error) {
+        next(error);
+    }
 };
 
 

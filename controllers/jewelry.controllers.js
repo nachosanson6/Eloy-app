@@ -38,6 +38,19 @@ const getOneJewelry = (req, res, next) => {
         .catch(err => next(err))
 }
 
+const getJewelryPhotos = (req, res, next) => {
+    const jewelryPromise = Jewelry.find({ sold: false });
+
+    jewelryPromise
+        .then((jewelry) => {
+            const allItems = jewelry.map(item => ({ photo: item.photo, product: item.product, sold: item.sold, _id: item._id }));
+            res.json(allItems);
+        })
+        .catch(err => {
+            next(err);
+        });
+};
+
 const filteredJewelry = (req, res, next) => {
 
     const { materials } = req.body
@@ -79,6 +92,7 @@ module.exports = {
     getAllJewelry,
     getOneJewelry,
     filteredJewelry,
+    getJewelryPhotos,
     editJewelry,
     deleteJewelry
 }

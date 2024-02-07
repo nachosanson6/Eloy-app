@@ -68,6 +68,19 @@ const filteredPictures = (req, res, next) => {
         });
 }
 
+const getPicturesPhotos = (req, res, next) => {
+    const picturesPromise = Picture.find({ sold: false });
+
+    picturesPromise
+        .then((pictures) => {
+            const allItems = pictures.map(item => ({ photo: item.photo, product: item.product, sold: item.sold, _id: item._id }));
+            res.json(allItems);
+        })
+        .catch(err => {
+            next(err);
+        });
+};
+
 const editPicture = async (req, res, next) => {
     try {
         const { _id, photo, height, width, prize, colors, materials, sold } = req.body;
@@ -109,6 +122,7 @@ module.exports = {
     getAllPictures,
     getOnePicture,
     filteredPictures,
+    getPicturesPhotos,
     editPicture,
     deletePicture
 }

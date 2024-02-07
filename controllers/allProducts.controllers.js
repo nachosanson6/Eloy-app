@@ -11,9 +11,9 @@ const getAllPhotos = (req, res, next) => {
     Promise.all([picturesPromise, sculpturesPromise, jewelryPromise])
         .then(([pictures, sculptures, jewelry]) => {
             const allItems = [
-                ...pictures.map(item => ({ photo: item.photo, product: item.product, sold: item.sold })),
-                ...sculptures.map(item => ({ photo: item.photo, product: item.product, sold: item.sold })),
-                ...jewelry.map(item => ({ photo: item.photo, product: item.product, sold: item.sold }))
+                ...pictures.map(item => ({ photo: item.photo, product: item.product, sold: item.sold, _id: item._id })),
+                ...sculptures.map(item => ({ photo: item.photo, product: item.product, sold: item.sold, _id: item._id })),
+                ...jewelry.map(item => ({ photo: item.photo, product: item.product, sold: item.sold, _id: item._id }))
             ];
             res.json(allItems);
         })

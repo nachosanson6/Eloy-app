@@ -5,6 +5,7 @@ const {
     getAllJewelry,
     getOneJewelry,
     filteredJewelry,
+    getJewelryPhotos,
     editJewelry,
     deleteJewelry,
 } = require("../controllers/jewelry.controllers")
@@ -16,6 +17,8 @@ router.get("/getAllJewelry", getAllJewelry)
 router.get("/getOneJewelry/:jewelry_id", getOneJewelry)
 
 router.get("/filteredJewelry", filteredJewelry)
+
+router.get("/getJewelryPhotos", getJewelryPhotos)
 
 router.post("/editJewelry", editJewelry)
 

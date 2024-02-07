@@ -39,6 +39,19 @@ const getOneSculpture = (req, res, next) => {
         .catch(err => next(err))
 }
 
+const getSculpturesPhotos = (req, res, next) => {
+    const sculpturePromise = Sculpture.find({ sold: false });
+
+    sculpturePromise
+        .then((sculptures) => {
+            const allItems = sculptures.map(item => ({ photo: item.photo, product: item.product, sold: item.sold, _id: item._id }));
+            res.json(allItems);
+        })
+        .catch(err => {
+            next(err);
+        });
+};
+
 const filteredSculptures = (req, res, next) => {
 
     const { height, width, materials } = req.body
@@ -86,6 +99,7 @@ module.exports = {
     newSculpture,
     getAllSculptures,
     getOneSculpture,
+    getSculpturesPhotos,
     filteredSculptures,
     editSculpture,
     deleteSculpture

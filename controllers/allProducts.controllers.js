@@ -40,7 +40,62 @@ const getAllProducts = async (req, res, next) => {
     }
 };
 
+const getOneProduct = async (req, res, next) => {
+    const { product_id } = req.params;
+    try {
+        const productDetails = await getProductDetails(product_id);
+
+        if (!productDetails) {
+            return res.status(404).json({ message: 'Producto no encontrado' });
+        }
+
+        let carouselElements;
+
+        // Obtener las fotos del producto de Picture, Sculpture o Jewelry según sea necesario
+        switch (productDetails.product) {
+            case 'Pictures':
+                carouselElements = await Picture.find({ sold: false }).select('photo product sold _id');
+                break;
+            case 'Sculptures':
+                carouselElements = await Sculpture.find({ sold: false }).select('photo product sold _id');
+                break;
+            case 'Jewelry':
+                carouselElements = await Jewelry.find({ sold: false }).select('photo product sold _id');
+                break;
+            default:
+                carouselElements = [];
+                break;
+        }
+
+        if (!carouselElements.length) {
+            // Si no hay elementos en el carrusel, podrías devolver un mensaje específico
+            return res.status(404).json({ message: 'No se encontraron elementos en el carrusel' });
+        }
+
+        res.json({ productDetails, carouselElements });
+    } catch (err) {
+        next(err);
+    }
+};
+
+const getProductDetails = async (productId) => {
+    let productDetails;
+
+    // Obtener los detalles del producto de Picture, Sculpture o Jewelry según sea necesario
+    productDetails = await Picture.findById(productId);
+    if (!productDetails) {
+        productDetails = await Sculpture.findById(productId);
+    }
+    if (!productDetails) {
+        productDetails = await Jewelry.findById(productId);
+    }
+
+    return productDetails;
+};
+
+
 module.exports = {
     getAllPhotos,
-    getAllProducts
+    getAllProducts,
+    getOneProduct
 }

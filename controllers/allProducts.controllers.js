@@ -67,11 +67,6 @@ const getOneProduct = async (req, res, next) => {
                 break;
         }
 
-        if (!carouselElements.length) {
-            // Si no hay elementos en el carrusel, podrías devolver un mensaje específico
-            return res.status(404).json({ message: 'No se encontraron elementos en el carrusel' });
-        }
-
         res.json({ productDetails, carouselElements });
     } catch (err) {
         next(err);

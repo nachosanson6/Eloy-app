@@ -12,6 +12,7 @@ const sculptureSchema = new Schema(
         },
         photo: {
             type: String,
+            required: [true, 'La foto es obligatoria.'],
         },
         photo2: {
             type: String,
@@ -25,14 +26,12 @@ const sculptureSchema = new Schema(
         }],
         height: {
             type: String,
-
-
+            required: [true, 'La altura es obligatoria.'],
         },
 
         width: {
             type: String,
-
-
+            required: [true, 'La anchura es obligatoria.'],
         },
         prize: {
             type: String

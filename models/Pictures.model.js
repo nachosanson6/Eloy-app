@@ -13,18 +13,18 @@ const pictureSchema = new Schema(
 
         photo: {
             type: String,
-            // required: [true, 'La foto es obligatoria.'],
+            required: [true, 'La foto es obligatoria.'],
 
         },
         height: {
             type: String,
-
+            required: [true, 'La altura es obligatoria.'],
 
         },
 
         width: {
             type: String,
-
+            required: [true, 'La anchura es obligatoria.'],
 
         },
 
@@ -37,7 +37,8 @@ const pictureSchema = new Schema(
         }],
 
         materials: [{
-            type: String
+            type: String,
+            required: [true, 'Los materiales son obligatorios.'],
         }],
 
         sold: {

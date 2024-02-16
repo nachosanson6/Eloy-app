@@ -19,7 +19,8 @@ const jewelrySchema = new Schema(
         },
 
         prize: {
-            type: String
+            type: String,
+            required: [true, 'El precio es obligatorio.'],
         },
 
         materials: [{

@@ -34,7 +34,8 @@ const sculptureSchema = new Schema(
             required: [true, 'La anchura es obligatoria.'],
         },
         prize: {
-            type: String
+            type: String,
+            required: [true, 'El precio es obligatorio.'],
         },
 
         sold: {

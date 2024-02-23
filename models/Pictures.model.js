@@ -30,7 +30,7 @@ const pictureSchema = new Schema(
 
         prize: {
             type: String,
-            required: [true, 'El precio es obligatorio.'],
+
 
         },
 
